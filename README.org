@@ -1,0 +1,63 @@
+#+TITLE: Post Install Script
+#+AUTHOR: Urban Katern
+#+PROPERTY: header-args :tangle install.sh
+#+auto_tangle t
+#+STARTUP showeverything
+
+* Table of Contents :toc:
+- [[#stage-0-updating-system][Stage 0: Updating system]]
+- [[#stage-1-installing-yay][Stage 1: Installing Yay]]
+- [[#stage-2-cloning-dotfiles][Stage 2: Cloning dotfiles]]
+- [[#stage-3-installing-packages][Stage 3: Installing packages]]
+- [[#stage-4-copying-dotfiles][Stage 4: Copying dotfiles]]
+- [[#stage-5-starship-and-shell-color-scripts][Stage 5: Starship and shell-color-scripts]]
+
+* Stage 0: Updating system
+#+begin_src bash
+#!/bin/bash
+echo "###########################################################"
+echo "###                  Updating system                    ###"
+echo "###########################################################"
+sudo pacman -Syu --noconfirm --needed
+#+end_src
+* Stage 1: Installing Yay
+#+begin_src bash
+echo "###########################################################"
+echo "###                   Installing Yay                    ###"
+echo "###########################################################"
+sudo pacman -S --noconfirm --needed git base-devel
+git clone https://aur.archlinux.org/yay
+cd yay
+makepkg -si
+cd ~
+#+end_src
+
+* Stage 2: Cloning dotfiles
+#+begin_src bash
+echo "###########################################################"
+echo "###                  Cloning dotfiles                   ###"
+echo "###########################################################"
+git clone https://gitlab.com/dwt1/dotfiles
+git clone https://gitlab.com/dwt1/wallpapers
+#+end_src
+
+* Stage 3: Installing packages
+#+begin_src bash
+yay -S --noconfirm --needed - < pkglist.txt
+#+end_src
+
+* Stage 4: Copying dotfiles
+#+begin_src bash
+cp -r ~/dotfiles/.config/qtile ~/dotfiles/.config/alacritty ~/dotfiles/.config/emacs ~/dotfiles/.config/conky ~/dotfiles/.config/picom ~/dotfiles/.config/rofi ~/dotfiles/.config/starship.toml ~/.config/
+cp -r ~/dotfiles/.bashrc ~/
+#+end_src
+
+* Stage 5: Starship and shell-color-scripts
+#+begin_src bash
+curl -sS https://starship.rs/install.sh | sh
+git clone https://gitlab.com/dwt1/shell-color-scripts
+cd shell-color-scripts/
+makepkg -cf
+sudo pacman -U *.pkg.tar.zst
+cd ~
+#+end_src
