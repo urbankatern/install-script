@@ -15,6 +15,7 @@
 * Stage 0: Updating system
 #+begin_src bash
 #!/bin/bash
+clear
 echo "###########################################################"
 echo "###                  Updating system                    ###"
 echo "###########################################################"
@@ -22,6 +23,7 @@ sudo pacman -Syu --noconfirm --needed
 #+end_src
 * Stage 1: Installing Yay
 #+begin_src bash
+clear
 echo "###########################################################"
 echo "###                   Installing Yay                    ###"
 echo "###########################################################"
@@ -34,6 +36,7 @@ cd ~
 
 * Stage 2: Cloning dotfiles
 #+begin_src bash
+clear
 echo "###########################################################"
 echo "###                  Cloning dotfiles                   ###"
 echo "###########################################################"
