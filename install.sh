@@ -13,7 +13,7 @@ sudo pacman -S --noconfirm --needed base-devel
 git clone https://aur.archlinux.org/yay
 cd yay
 makepkg -si
-cd ~
+cd ~/install-script
 
 clear
 echo "###########################################################"
